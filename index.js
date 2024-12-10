@@ -152,7 +152,7 @@ let isDragging = false;
 //}
 
 function updatePaddlePosition(event) {
-    if (!isDragging) return; // If we're not dragging, do nothing!
+    //if (!isDragging) return; // If we're not dragging, do nothing!
 
     // Get mouse Y position relative to the canvas
     const mouseY = event.clientY - gameBoard.getBoundingClientRect().top;
