@@ -33,7 +33,10 @@ let paddle2 = {
     y: gameHeight - 25
 }
 
+gameBoard.addEventListener("mousedown", handleMouseDown);
+gameBoard.addEventListener("mouseup", handleMouseUp);
 gameBoard.addEventListener("mousemove", updatePaddlePosition);
+gameBoard.addEventListener("mouseleave", handleMouseUp);
 resetBtn.addEventListener("click", resetGame);
 
 gameStart();
@@ -141,17 +144,30 @@ function checkCollision() {
     }
 }
 
+let isDragging = false;
+
+function handleMouseDown(event) {
+    isDragging = true;
+}
+
+function handleMouseUp(event) {
+    isDragging = false;
+}
+
 function updatePaddlePosition(event) {
+    if (!isDragging) return; // If we're not dragging, do nothing!
+
+    // Get mouse Y position relative to the canvas
     const mouseY = event.clientY - gameBoard.getBoundingClientRect().top;
+
+    // Move paddles only when we're clicking and dragging
     const newPosition = mouseY - paddle1.height/2;
 
     if (newPosition >= 0 && newPosition <= gameHeight - paddle1.height) {
         paddle1.y = newPosition;
-        paddle2.y = newPosition; // Both paddles move together now!
+        paddle2.y = newPosition;
     }
 }
-
-
 
 function updateScore(){
     scoreText.textContent = `${player1Score} : ${player2Score}`;
