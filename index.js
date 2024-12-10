@@ -33,7 +33,7 @@ let paddle2 = {
     y: gameHeight - 25
 }
 
-window.addEventListener("keydown", changeDirection);
+gameBoard.addEventListener("mousemove", updatePaddlePosition);
 resetBtn.addEventListener("click", resetGame);
 
 gameStart();
@@ -141,36 +141,17 @@ function checkCollision() {
     }
 }
 
-function changeDirection(event) {
-    const keyPressed = event.keyCode;
-    const paddle1Up = 87;    // W key
-    const paddle1Down = 83;  // S key
-    const paddle2Up = 38;    // Up arrow
-    const paddle2Down = 40;  // Down arrow
+function updatePaddlePosition(event) {
+    const mouseY = event.clientY - gameBoard.getBoundingClientRect().top;
+    const newPosition = mouseY - paddle1.height/2;
 
-    switch (keyPressed){
-        case(paddle1Up):
-            if (paddle1.y > 0){
-                paddle1.y -= paddleSpeed;
-            }
-            break;
-        case(paddle1Down):
-            if (paddle1.y < gameHeight - paddle1.height){
-                paddle1.y += paddleSpeed;
-            }
-            break;
-        case(paddle2Up):
-            if (paddle2.y > 0){
-                paddle2.y -= paddleSpeed;
-            }
-            break;
-        case(paddle2Down):
-            if (paddle2.y < gameHeight - paddle2.height){
-                paddle2.y += paddleSpeed;
-            }
-            break;
+    if (newPosition >= 0 && newPosition <= gameHeight - paddle1.height) {
+        paddle1.y = newPosition;
+        paddle2.y = newPosition; // Both paddles move together now!
     }
 }
+
+
 
 function updateScore(){
     scoreText.textContent = `${player1Score} : ${player2Score}`;
