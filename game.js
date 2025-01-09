@@ -1,5 +1,5 @@
 export class Game{
-    constructor(canvas, ctx) {
+    constructor(canvas, ctx, balls) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.balls = balls;
@@ -35,4 +35,6 @@ export class Game{
         ball.sx = Math.random() * 5;
         ball.sy = Math.random() * 5;
     }
+
+
 }

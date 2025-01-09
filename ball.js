@@ -59,4 +59,45 @@ export class Ball {
 
         this.ctx.restore();
     }
+
+    checkCollisions(other){
+        const dx = this.x - other.x;
+        const dy = this.y - other.y;
+        const distance = Math.sqrt((dx) ** 2 + (dy) ** 2);
+        if (distance <= this.radius + other.radius){
+            const overlap = (this.radius + other.radius) - distance;
+            const normalizeX = dx/distance;
+            const normalizeY = dy/distance;
+
+            this.x += normalizeX * (overlap / 2);
+            this.y += normalizeY * (overlap / 2);
+            other.x -= normalizeX * (overlap / 2);
+            other.y -= normalizeY * (overlap / 2);
+
+            this.updateSpeed(other, normalizeX, normalizeY)
+
+        }
+
+    }
+
+    updateSpeed(other, normalizeX, normalizeY){
+        const u1 = this.sx * normalizeX + this.sy * normalizeY;
+        const u2 = other.sx * normalizeX + other.sy * normalizeY;
+        const totalMass = this.mass + other.mass
+
+        const v1 = (u1 * (this.mass - other.mass) + 2 * other.mass * u2) / totalMass;
+        const v2 = (u2 * (other.mass - this.mass) + 2 * this.mass * u1) / totalMass;
+
+        //const tangentX = -normalizeY;
+        //const tangentY = normalizeX;
+        const ut1 = this.sx * -normalizeY + this.sy * normalizeX;
+        const ut2 = other.sx * -normalizeY + other.sy * normalizeX;
+
+        this.sx = v1 * normalizeX + ut1 * -normalizeY;
+        this.sy = v1 * normalizeY + ut1 * normalizeX;
+        other.sx = v2 * normalizeX + ut2 * -normalizeY;
+        other.sy = v2 * normalizeY + ut2 * normalizeX;
+    }
+
+
 }
