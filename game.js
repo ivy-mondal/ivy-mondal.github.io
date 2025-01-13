@@ -36,5 +36,16 @@ export class Game{
         ball.sy = Math.random() * 5;
     }
 
+    drawBalls(){
+        this.balls.forEach(ball => ball.draw());
+    }
+
+    checkCollisions(){
+        for (let i = 0; i < this.balls.length; i ++){
+            for (let j = i + 1; j < this.balls.length; j++){
+                this.balls[i].checkCollisions(this.balls[j]);
+            }
+        }
+    }
 
 }

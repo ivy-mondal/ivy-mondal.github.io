@@ -1,9 +1,10 @@
 import { Ball } from './ball.js';
+import {Game} from './game.js'
 
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 800;
+canvas.width = 1200;
 canvas.height = 600;
 document.body.appendChild(canvas);
 
@@ -18,17 +19,18 @@ const balls = [
     new Ball(300, 200, 30, 2, 2, 0, 2, ctx)
 ];
 
+const game = new Game(canvas, ctx, balls);
+
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas first
     ctx.fillStyle = "#1A287A"; // Set the background color
     ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the canvas with the color
 
-    balls.forEach(ball => {
-        ball.move();
-        ball.draw();
-    });
+    game.update();
 
     requestAnimationFrame(animate);
 }
 
 animate();
+
+
