@@ -32,8 +32,8 @@ export class Game{
     respawnBall(ball){
         ball.x = Math.random() * this.canvas.width;
         ball.y = Math.random() * this.canvas.height;
-        ball.sx = Math.random() * 5;
-        ball.sy = Math.random() * 5;
+        ball.sx = (Math.random() * 2 - 1) * 5;
+        ball.sy = (Math.random() * 2 - 1) * 5;
     }
 
     drawBalls(){

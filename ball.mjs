@@ -88,6 +88,8 @@ export class Ball {
         const v1 = (u1 * (this.mass - other.mass) + 2 * other.mass * u2) / totalMass;
         const v2 = (u2 * (other.mass - this.mass) + 2 * this.mass * u1) / totalMass;
 
+        this.checkKineticEnergy(other, u1, u2, v1, v2);
+
         //const tangentX = -normalizeY;
         //const tangentY = normalizeX;
         const ut1 = this.sx * -normalizeY + this.sy * normalizeX;
@@ -97,6 +99,21 @@ export class Ball {
         this.sy = v1 * normalizeY + ut1 * normalizeX;
         other.sx = v2 * normalizeX + ut2 * -normalizeY;
         other.sy = v2 * normalizeY + ut2 * normalizeX;
+    }
+
+    checkKineticEnergy(other, u1, u2, v1, v2) {
+        const beforeKE = (0.5 * this.mass * u1 * u1) + (0.5 * other.mass * u2 * u2);
+        const afterKE = (0.5 * this.mass * v1 * v1) + (0.5 * other.mass * v2 * v2);
+
+        const tolerance = 0.01;
+        const isConserved = Math.abs(beforeKE - afterKE) < tolerance;
+
+        if (!isConserved) {
+            console.log("Kinetic energy is NOT conserved! 😱");
+        } else {
+            console.log("Kinetic energy is conserved. 🎉");
+        }
+        return isConserved;
     }
 
 

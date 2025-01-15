@@ -1,5 +1,5 @@
-import { Ball } from './ball.js';
-import {Game} from './game.js'
+import { Ball } from './ball.mjs';
+import {Game} from './game.mjs'
 
 
 const canvas = document.createElement("canvas");
