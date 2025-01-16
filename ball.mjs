@@ -106,12 +106,13 @@ export class Ball {
         const afterKE = (0.5 * this.mass * v1 * v1) + (0.5 * other.mass * v2 * v2);
 
         const tolerance = 0.01;
+        const value = Math.abs(beforeKE - afterKE) ;
         const isConserved = Math.abs(beforeKE - afterKE) < tolerance;
 
         if (!isConserved) {
-            console.log("Kinetic energy is NOT conserved! 😱");
+            console.log("Kinetic energy is NOT conserved! 😱" + value);
         } else {
-            console.log("Kinetic energy is conserved. 🎉");
+            console.log("Kinetic energy is conserved. 🎉" + value);
         }
         return isConserved;
     }
