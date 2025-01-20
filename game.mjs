@@ -10,6 +10,7 @@ export class Game{
         this.respawnBalls();
         this.checkCollisions();
         this.drawBalls();
+
     }
 
     moveBalls(){
@@ -44,8 +45,12 @@ export class Game{
         for (let i = 0; i < this.balls.length; i ++){
             for (let j = i + 1; j < this.balls.length; j++){
                 this.balls[i].checkCollisions(this.balls[j]);
+                this.balls[i].speedChangeForCharge(this.balls[j]);
             }
         }
     }
+
+
+
 
 }

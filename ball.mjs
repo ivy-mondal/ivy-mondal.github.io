@@ -60,14 +60,20 @@ export class Ball {
         this.ctx.restore();
     }
 
-    checkCollisions(other){
+    calculateDistanceAndDirection(other) {
         const dx = this.x - other.x;
         const dy = this.y - other.y;
-        const distance = Math.sqrt((dx) ** 2 + (dy) ** 2);
-        if (distance <= this.radius + other.radius){
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const normalizeX = dx / distance;
+        const normalizeY = dy / distance;
+        return {dx, dy, distance, normalizeX, normalizeY};
+    }
+
+    checkCollisions(other) {
+        const {dx, dy, distance, normalizeX, normalizeY} = this.calculateDistanceAndDirection(other);
+        if (distance <= this.radius + other.radius) {
             const overlap = (this.radius + other.radius) - distance;
-            const normalizeX = dx/distance;
-            const normalizeY = dy/distance;
+
 
             this.x += normalizeX * (overlap / 2);
             this.y += normalizeY * (overlap / 2);
@@ -80,7 +86,8 @@ export class Ball {
 
     }
 
-    updateSpeed(other, normalizeX, normalizeY){
+    updateSpeed(other) {
+        const {normalizeX, normalizeY} = this.calculateDistanceAndDirection(other);
         const u1 = this.sx * normalizeX + this.sy * normalizeY;
         const u2 = other.sx * normalizeX + other.sy * normalizeY;
         const totalMass = this.mass + other.mass
@@ -106,7 +113,7 @@ export class Ball {
         const afterKE = (0.5 * this.mass * v1 * v1) + (0.5 * other.mass * v2 * v2);
 
         const tolerance = 0.01;
-        const value = Math.abs(beforeKE - afterKE) ;
+        const value = Math.abs(beforeKE - afterKE);
         const isConserved = Math.abs(beforeKE - afterKE) < tolerance;
 
         if (!isConserved) {
@@ -117,5 +124,15 @@ export class Ball {
         return isConserved;
     }
 
+    speedChangeForCharge(other) {
+        const {dx, dy, distance, normalizeX, normalizeY} = this.calculateDistanceAndDirection(other);
+        const k = 1;
+        const magneticForce = (k * this.charge * other.charge) / (distance * distance);
+        this.sx += (magneticForce / this.mass) * normalizeX;
+        this.sy += (magneticForce / this.mass) * normalizeY;
+        other.sx -= (magneticForce / other.mass) * normalizeX;
+        other.sy -= (magneticForce / other.mass) * normalizeY;
+
+    }
 
 }
