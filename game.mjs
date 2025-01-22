@@ -7,7 +7,7 @@ export class Game{
 
     update(){
         this.moveBalls();
-        this.respawnBalls();
+        this.bounceBalls();
         this.checkCollisions();
         this.drawBalls();
 
@@ -17,25 +17,30 @@ export class Game{
         this.balls.forEach(ball => ball.move());
     }
 
-    respawnBalls(){
+    bounceBalls() {
         this.balls.forEach(ball => {
             if (
-                ball.x - ball.radius > this.canvas.width ||
-                ball.x + ball.radius < 0 ||
-                ball.y - ball.radius > this.canvas.height ||
-                ball.y + ball.radius < 0
-            ){
-                this.respawnBall(ball)
+                ball.x + ball.radius > this.canvas.width ||
+                ball.x - ball.radius < 0
+            ) {
+                ball.sx = -ball.sx;
+            }
+            if (
+                ball.y + ball.radius > this.canvas.height ||
+                ball.y - ball.radius < 0
+            ) {
+                ball.sy = -ball.sy;
             }
         });
     }
 
-    respawnBall(ball){
-        ball.x = Math.random() * this.canvas.width;
-        ball.y = Math.random() * this.canvas.height;
-        ball.sx = (Math.random() * 2 - 1) * 5;
-        ball.sy = (Math.random() * 2 - 1) * 5;
-    }
+
+    //respawnBall(ball){
+        //ball.x = Math.random() * this.canvas.width;
+        //ball.y = Math.random() * this.canvas.height;
+        //ball.sx = (Math.random() * 2 - 1) * 5;
+        //ball.sy = (Math.random() * 2 - 1) * 5;
+    //}
 
     drawBalls(){
         this.balls.forEach(ball => ball.draw());

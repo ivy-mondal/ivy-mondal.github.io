@@ -13,30 +13,7 @@ document.body.appendChild(canvas);
 
 const balls = [
     new Ball(100, 50, 20, 3, 3, 1, 1, ctx),
-    new Ball(100, 100, 40, 1, 1, 2, 3, ctx),
-    new Ball(200, 200, 20, 3, 3, -1, 1, ctx),
-    new Ball(200, 400, 40, 1, 1, -2, 3, ctx),
-    new Ball(300, 200, 30, 2, 2, 0, 2, ctx),
-    new Ball(100, 50, 20, 3, 3, 1, 1, ctx),
-    new Ball(100, 100, 40, 1, 1, 2, 3, ctx),
-    new Ball(200, 200, 20, 3, 3, -1, 1, ctx),
-    new Ball(200, 400, 40, 1, 1, -2, 3, ctx),
-    new Ball(300, 200, 30, 2, 2, 0, 2, ctx),
-    new Ball(100, 50, 20, 3, 3, 1, 1, ctx),
-    new Ball(100, 100, 40, 1, 1, 2, 3, ctx),
-    new Ball(200, 200, 20, 3, 3, -1, 1, ctx),
-    new Ball(200, 400, 40, 1, 1, -2, 3, ctx),
-    new Ball(300, 200, 30, 2, 2, 0, 2, ctx),
-    new Ball(100, 50, 20, 3, 3, 1, 1, ctx),
-    new Ball(100, 100, 40, 1, 1, 2, 3, ctx),
-    new Ball(200, 200, 20, 3, 3, -1, 1, ctx),
-    new Ball(200, 400, 40, 1, 1, -2, 3, ctx),
-    new Ball(300, 200, 30, 2, 2, 0, 2, ctx),
-    new Ball(100, 50, 20, 3, 3, 1, 1, ctx),
-    new Ball(100, 100, 40, 1, 1, 2, 3, ctx),
-    new Ball(200, 200, 20, 3, 3, -1, 1, ctx),
-    new Ball(200, 400, 40, 1, 1, -2, 3, ctx),
-    new Ball(300, 200, 30, 2, 2, 0, 2, ctx)
+    new Ball(200, 20, 20, 3, 3, -1, 1, ctx),
 ];
 
 const game = new Game(canvas, ctx, balls);

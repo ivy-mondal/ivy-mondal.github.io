@@ -63,7 +63,7 @@ export class Ball {
     calculateDistanceAndDirection(other) {
         const dx = this.x - other.x;
         const dy = this.y - other.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distance = Math.sqrt(dx * dx + dy * dy)+ 0.000001;
         const normalizeX = dx / distance;
         const normalizeY = dy / distance;
         return {dx, dy, distance, normalizeX, normalizeY};
@@ -126,13 +126,15 @@ export class Ball {
 
     speedChangeForCharge(other) {
         const {dx, dy, distance, normalizeX, normalizeY} = this.calculateDistanceAndDirection(other);
-        const k = 1;
-        const magneticForce = (k * this.charge * other.charge) / (distance * distance);
+        const k = 500;
+        const magneticForce = (k * this.charge * other.charge) / (distance * distance + 0.0000000001);
         this.sx += (magneticForce / this.mass) * normalizeX;
         this.sy += (magneticForce / this.mass) * normalizeY;
         other.sx -= (magneticForce / other.mass) * normalizeX;
         other.sy -= (magneticForce / other.mass) * normalizeY;
-
+        //console.log("position 1" + " " + this.x + this.y + "position 2" + " " + other.x + other.y);
+        //console.log("acceleration 1" + " " + (magneticForce / this.mass) + "acceleration 2" + " " + (magneticForce / other.mass));
+        //console.log("speed1" + " " + this.sx + this.sy + "speed2" + " " + other.sx + other.sy);
     }
 
 }
